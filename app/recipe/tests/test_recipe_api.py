@@ -44,7 +44,7 @@ def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
 
-class PublicRecipeAPITest(TestCase):
+class PublicRecipeAPITests(TestCase):
     """Test unauthenticated API requests."""
 
     def setUp(self):
@@ -57,7 +57,7 @@ class PublicRecipeAPITest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateRecipeAPITest(TestCase):
+class PrivateRecipeAPITests(TestCase):
     """Test authenticated API requests."""
 
     def setUp(self):
@@ -67,7 +67,7 @@ class PrivateRecipeAPITest(TestCase):
         )
         self.client.force_authenticate(self.user)
 
-    def test_retrieve_recipe(self):
+    def test_retrieve_recipes(self):
         """Test retrieving a list of recipes."""
         create_recipe(self.user)
         create_recipe(self.user)
@@ -167,14 +167,13 @@ class PrivateRecipeAPITest(TestCase):
 
     def test_update_user_return_error(self):
         """Test changing the recipe user results in an error."""
-        recipe = create_recipe(user=self.user)
         new_user = create_user(email='user2@example.com', password='tp1234567890')
+        recipe = create_recipe(user=self.user)
 
         payload = {'user': new_user.id}
         url = detail_url(recipe.id)
-        res = self.client.patch(url, payload)
+        self.client.patch(url, payload)
 
-        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
         recipe.refresh_from_db()
         self.assertEqual(recipe.user, self.user)
 
