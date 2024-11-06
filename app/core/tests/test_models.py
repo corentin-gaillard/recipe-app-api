@@ -51,7 +51,7 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_staff)
 
     def test_create_recipe(self):
-        """Test creatinq a recipe is successful."""
+        """Test creating a recipe is successful."""
         user = get_user_model().objects.create_user(
             'test@example.com',
             'testpass123'
@@ -65,3 +65,16 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(recipe), recipe.title)
+
+    def test_create_tag(self):
+        """Test creating a tag is successful."""
+        user = get_user_model().objects.create_user(
+            'test@example.com',
+            'testpass123'
+        )
+        tag = models.Tag.objects.create(
+            user=user,
+            name="test tag",
+        )
+
+        self.assertEqual(str(tag), tag.name)
