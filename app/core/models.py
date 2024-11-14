@@ -15,7 +15,7 @@ from django.core.validators import validate_email
 
 
 def recipe_image_file_path(instance, filename):
-    """Generate file path new recipe image"""
+    """Generate file path for new recipe image."""
     ext = os.path.splitext(filename)[1]
     filename = f'{uuid.uuid4()}{ext}'
 
@@ -46,7 +46,6 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
-
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)

@@ -1,5 +1,5 @@
 """
-Views for the recipe API
+Views for the recipe APIs
 """
 from drf_spectacular.utils import (
     extend_schema_view,
@@ -50,7 +50,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def _params_to_ints(self, qs):
-        """Convert a list of strings to integer."""
+        """Convert a list of strings to integers."""
         return [int(str_id) for str_id in qs.split(',')]
 
     def _add_filter_to_query(self, queryset, filter_name):
@@ -102,7 +102,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 'assigned_only',
                 OpenApiTypes.INT, enum=[0, 1],
                 description='Filter by items assigned to recipes.',
-            )
+            ),
         ]
     )
 )
