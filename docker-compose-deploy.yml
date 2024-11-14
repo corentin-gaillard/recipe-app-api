@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-    restart: unless-stopped
+    restart: always
     volumes:
       - static-data:/vol/web
     environment:
@@ -17,7 +17,7 @@ services:
 
   db:
     image: postgres:13-alpine
-    restart: unless-stopped
+    restart: always
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
