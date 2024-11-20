@@ -56,7 +56,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def _add_filter_to_query(self, queryset, filter_name):
         f = self.request.query_params.get(filter_name)
         if f:
-            f_ids = self._params_to_int(f)
+            f_ids = self._params_to_ints(f)
             queryset = queryset.filter(**{f'{filter_name}__id__in': f_ids})
         return queryset
 
